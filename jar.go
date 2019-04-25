@@ -613,7 +613,7 @@ func (j *Jar) newEntry(c *http.Cookie, now time.Time, defPath, host string) (e e
 			e.Persistent = j.IgnoreExpires
 			return e, nil
 		}
-	} else if c.Expires.IsZero() {
+	} else if c.Expires.IsZero() || c.Expires.Unix() <= int64(0) {
 		e.Persistent = j.IgnoreDiscard
 		e.Expires = endOfTime
 	} else {
